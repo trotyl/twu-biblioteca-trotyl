@@ -11,11 +11,11 @@ public abstract class Resource {
 
     public abstract String getInvalidOptionWarning();
 
-    public abstract String getCheckoutSuccessMessage(Book book);
+    public abstract String getCheckoutSuccessMessage(Item item);
 
     public abstract String getCheckoutFailMessage();
 
-    public abstract String getReturnSuccessMessage(Book book);
+    public abstract String getReturnSuccessMessage(Item item);
 
     public abstract String getReturnFailMessage();
 

@@ -24,20 +24,4 @@ public class BookTest {
         assertThat(book.toString(), is("1 Title Author 2012"));
     }
 
-    @Test
-    public void should_be_able_to_checkout() {
-        book.checkout();
-
-        assertThat(book.isAvailable(), is(false));
-    }
-
-    @Test
-    public void should_be_able_to_return() {
-        book.checkout();
-
-        book.doReturn();
-
-        assertThat(book.isAvailable(), is(true));
-    }
-
 }

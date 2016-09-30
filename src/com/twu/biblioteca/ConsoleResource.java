@@ -28,8 +28,8 @@ public class ConsoleResource extends Resource {
     }
 
     @Override
-    public String getCheckoutSuccessMessage(Book book) {
-        return String.format("Checkout %s successfully!", book.getTitle());
+    public String getCheckoutSuccessMessage(Item item) {
+        return String.format("Checkout %s successfully!", item.getTitle());
     }
 
     @Override
@@ -38,8 +38,8 @@ public class ConsoleResource extends Resource {
     }
 
     @Override
-    public String getReturnSuccessMessage(Book book) {
-        return String.format("Return %s successfully!", book.getTitle());
+    public String getReturnSuccessMessage(Item item) {
+        return String.format("Return %s successfully!", item.getTitle());
     }
 
     @Override

@@ -101,9 +101,9 @@ public class AppTest {
     }
 
     @Test
-    public void should_be_able_to_checkout_book() {
-        String message = "Checked out some book";
-        when(resource.getCheckoutSuccessMessage(any(Book.class))).thenReturn(message);
+    public void should_be_able_to_checkout_item() {
+        String message = "Checked out some item";
+        when(resource.getCheckoutSuccessMessage(any(Item.class))).thenReturn(message);
 
         app.run(0);
         app.execute("checkout 1");
@@ -134,9 +134,9 @@ public class AppTest {
     }
 
     @Test
-    public void should_be_able_to_return_book() {
+    public void should_be_able_to_return_item() {
         String message = "Return some book";
-        when(resource.getReturnSuccessMessage(any(Book.class))).thenReturn(message);
+        when(resource.getReturnSuccessMessage(any(Item.class))).thenReturn(message);
 
         app.run(0);
         app.execute("return 1");
@@ -162,4 +162,5 @@ public class AppTest {
 
         verify(proxy).displayMovieList(asList(movies.get(0)));
     }
+
 }
