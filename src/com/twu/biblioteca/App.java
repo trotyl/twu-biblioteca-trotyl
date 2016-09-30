@@ -18,7 +18,7 @@ public class App {
     }
 
     public void showMenuItems() {
-        proxy.displayMenuItems(resource.getMenuItems());
+        proxy.displayMainMenuItems(resource.getMainMenuItems());
     }
 
     public boolean run(int option) {

@@ -47,11 +47,11 @@ public class AppTest {
     @Test
     public void should_show_menu() {
         List<String> menuItems = asList("Option1", "Option2");
-        when(resource.getMenuItems()).thenReturn(menuItems);
+        when(resource.getMainMenuItems()).thenReturn(menuItems);
 
         app.showMenuItems();
 
-        verify(proxy).displayMenuItems(menuItems);
+        verify(proxy).displayMainMenuItems(menuItems);
     }
 
     @Test

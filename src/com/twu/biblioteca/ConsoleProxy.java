@@ -19,7 +19,7 @@ public class ConsoleProxy extends Proxy {
     }
 
     @Override
-    public void displayMenuItems(List<String> items) {
+    public void displayMainMenuItems(List<String> items) {
         System.out.println("The available options are:");
         for (int i = 0; i < items.size(); i++) {
             System.out.println(String.format("%d) %s", i + 1, items.get(i)));
