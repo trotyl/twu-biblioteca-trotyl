@@ -46,9 +46,9 @@ public class App {
             case "0":
                 break;
             case "checkout":
-                String bookId = tokens[1];
-                List<Book> books = resource.getBooks().stream()
-                        .filter(book -> book.getId().equals(bookId))
+                String bookIdToCheckout = tokens[1];
+                List<Book> booksCheckedOut = resource.getBooks().stream()
+                        .filter(book -> book.getId().equals(bookIdToCheckout))
                         .map(book -> {
                             book.checkout();
                             String message = resource.getCheckoutSuccessMessage(book);
@@ -56,11 +56,22 @@ public class App {
                             return book;
                         })
                         .collect(toList());
-                if (books.size() == 0) {
+                if (booksCheckedOut.size() == 0) {
                     proxy.displayStatic(resource.getCheckoutFailMessage());
                 }
                 break;
-
+            case "return":
+                String bookIdToReturn = tokens[1];
+                List<Book> booksReturned = resource.getBooks().stream()
+                        .filter(book -> book.getId().equals(bookIdToReturn))
+                        .map(book -> {
+                            book.doReturn();
+                            String message = resource.getReturnSuccessMessage(book);
+                            proxy.displayStatic(message);
+                            return book;
+                        })
+                        .collect(toList());
+                break;
         }
 
         return Status.idle;

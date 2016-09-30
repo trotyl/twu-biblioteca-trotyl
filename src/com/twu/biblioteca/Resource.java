@@ -14,4 +14,6 @@ public abstract class Resource {
     public abstract String getCheckoutSuccessMessage(Book book);
 
     public abstract String getCheckoutFailMessage();
+
+    public abstract String getReturnSuccessMessage(Book book);
 }

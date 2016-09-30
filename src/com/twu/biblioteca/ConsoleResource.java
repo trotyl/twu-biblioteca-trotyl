@@ -37,4 +37,9 @@ public class ConsoleResource extends Resource {
         return "Checkout failed!";
     }
 
+    @Override
+    public String getReturnSuccessMessage(Book book) {
+        return null;
+    }
+
 }

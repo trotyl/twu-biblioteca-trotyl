@@ -29,8 +29,11 @@ public class AppTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         app = new App(proxy, resource);
+        Book book1 = new Book("1", "aBook", "anAuthor", 2012);
+        Book book2 = new Book("2", "anotherBook", "anotherAuthor", 2016);
+        book2.checkout();
 
-        books = asList(spy(new Book("1", "aBook", "anAuthor", 2012)));
+        books = asList(spy(book1), spy(book2));
         when(resource.getBooks()).thenReturn(books);
     }
 
@@ -47,7 +50,7 @@ public class AppTest {
     public void should_list_books() {
         app.displayBookList();
 
-        verify(proxy).displayBookList(books);
+        verify(proxy).displayBookList(asList(books.get(0)));
     }
 
     @Test
@@ -106,7 +109,7 @@ public class AppTest {
         when(resource.getCheckoutFailMessage()).thenReturn(message);
 
         app.run(0);
-        app.execute("checkout 2");
+        app.execute("checkout 9999");
 
         verify(proxy).displayStatic(message);
     }
@@ -119,5 +122,17 @@ public class AppTest {
         app.displayBookList();
 
         verify(proxy).displayBookList(Collections.emptyList());
+    }
+
+    @Test
+    public void should_be_able_to_return_book() {
+        String message = "Return some book";
+        when(resource.getReturnSuccessMessage(any(Book.class))).thenReturn(message);
+
+        app.run(0);
+        app.execute("return 1");
+
+        verify(proxy).displayStatic(message);
+        verify(books.get(0)).doReturn();
     }
 }
