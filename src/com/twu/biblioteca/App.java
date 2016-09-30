@@ -107,6 +107,10 @@ public class App {
                     proxy.displayStatic(resource.getLoginFailMessage());
                 }
                 break;
+            case "logout":
+                account = null;
+                proxy.displayStatic(resource.getLogoutMessage());
+                break;
         }
 
         return Status.idle;

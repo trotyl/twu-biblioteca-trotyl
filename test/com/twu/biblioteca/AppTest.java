@@ -13,6 +13,7 @@ import static com.twu.biblioteca.Status.quit;
 import static com.twu.biblioteca.Status.waitingForInput;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -215,5 +216,20 @@ public class AppTest {
         app.execute("login user 456");
 
         verify(proxy).displayStatic(message);
+    }
+
+    @Test
+    public void should_be_able_to_logout() {
+        String message = "Logout";
+        Account account = new Account("user", "123", false);
+        when(resource.getAccounts()).thenReturn(asList(account));
+        when(resource.getLogoutMessage()).thenReturn(message);
+
+        app.run(0);
+        app.execute("login user 123");
+        app.execute("logout");
+
+        verify(proxy).displayStatic(message);
+        assertThat(app.getAccount(), is(nullValue()));
     }
 }

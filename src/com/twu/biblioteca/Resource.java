@@ -26,4 +26,6 @@ public abstract class Resource {
     public abstract List<Account> getAccounts();
 
     public abstract String getLoginFailMessage();
+
+    public abstract String getLogoutMessage();
 }

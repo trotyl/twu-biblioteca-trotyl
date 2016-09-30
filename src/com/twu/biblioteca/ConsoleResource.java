@@ -37,6 +37,11 @@ public class ConsoleResource extends Resource {
     }
 
     @Override
+    public String getLogoutMessage() {
+        return "Logout";
+    }
+
+    @Override
     public List<Account> getAccounts() {
         return asList(
                 new Account("admin", "123", true),
