@@ -39,12 +39,12 @@ public class ConsoleResource extends Resource {
 
     @Override
     public String getReturnSuccessMessage(Book book) {
-        return null;
+        return String.format("Return %s successfully!", book.getTitle());
     }
 
     @Override
     public String getReturnFailMessage() {
-        return null;
+        return "Return failed!";
     }
 
 }
