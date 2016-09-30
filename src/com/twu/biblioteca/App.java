@@ -14,6 +14,10 @@ public class App {
         this.resource = resource;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
     public void start() {
         proxy.displayStatic(resource.getWelcomeMessage());
     }
@@ -88,6 +92,19 @@ public class App {
                         .collect(toList());
                 if (booksReturned.size() == 0) {
                     proxy.displayStatic(resource.getReturnFailMessage());
+                }
+                break;
+            case "login":
+                String username = tokens[1];
+                String password = tokens[2];
+                List<Account> accounts = resource.getAccounts().stream()
+                        .filter(account -> account.getName().equals(username) && account.getPassword().equals(password))
+                        .collect(toList());
+                if (accounts.size() > 0) {
+                    proxy.displayStatic(resource.getLoginSuccessMessage(username));
+                    account = accounts.get(0);
+                } else {
+                    proxy.displayStatic(resource.getLoginFailMessage());
                 }
                 break;
         }

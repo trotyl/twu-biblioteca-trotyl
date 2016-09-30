@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
 public class ConsoleResource extends Resource {
@@ -26,6 +27,24 @@ public class ConsoleResource extends Resource {
     }
 
     @Override
+    public String getLoginSuccessMessage(String username) {
+        return format("Welcome %s", username);
+    }
+
+    @Override
+    public String getLoginFailMessage() {
+        return "Login failed";
+    }
+
+    @Override
+    public List<Account> getAccounts() {
+        return asList(
+                new Account("admin", "123", true),
+                new Account("user", "123", false)
+        );
+    }
+
+    @Override
     public List<String> getMainMenuItems() {
         return asList("List Books", "List Movies", "Account");
     }
@@ -37,7 +56,7 @@ public class ConsoleResource extends Resource {
 
     @Override
     public String getCheckoutSuccessMessage(Item item) {
-        return String.format("Checkout %s successfully!", item.getTitle());
+        return format("Checkout %s successfully!", item.getTitle());
     }
 
     @Override
@@ -47,7 +66,7 @@ public class ConsoleResource extends Resource {
 
     @Override
     public String getReturnSuccessMessage(Item item) {
-        return String.format("Return %s successfully!", item.getTitle());
+        return format("Return %s successfully!", item.getTitle());
     }
 
     @Override

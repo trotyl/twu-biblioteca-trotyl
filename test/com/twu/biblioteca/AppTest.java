@@ -190,4 +190,30 @@ public class AppTest {
         assertThat(result, is(waitingForInput));
     }
 
+    @Test
+    public void should_be_able_to_login() {
+        String message = "Login success";
+        Account account = new Account("user", "123", false);
+        when(resource.getAccounts()).thenReturn(asList(account));
+        when(resource.getLoginSuccessMessage(anyString())).thenReturn(message);
+
+        app.run(0);
+        app.execute("login user 123");
+
+        verify(proxy).displayStatic(message);
+        assertThat(app.getAccount(), is(account));
+    }
+
+    @Test
+    public void should_warn_when_login_failed() {
+        String message = "Login failed";
+        Account account = new Account("user", "123", false);
+        when(resource.getAccounts()).thenReturn(asList(account));
+        when(resource.getLoginFailMessage()).thenReturn(message);
+
+        app.run(0);
+        app.execute("login user 456");
+
+        verify(proxy).displayStatic(message);
+    }
 }

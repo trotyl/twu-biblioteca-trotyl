@@ -20,4 +20,10 @@ public abstract class Resource {
     public abstract String getReturnFailMessage();
 
     public abstract List<Movie> getMovies();
+
+    public abstract String getLoginSuccessMessage(String username);
+
+    public abstract List<Account> getAccounts();
+
+    public abstract String getLoginFailMessage();
 }
