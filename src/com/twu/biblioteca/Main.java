@@ -4,7 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         ConsoleProxy proxy = new ConsoleProxy();
-        App app = new App(proxy);
+        ConsoleResource resource = new ConsoleResource();
+        App app = new App(proxy, resource);
         app.start();
     }
 }

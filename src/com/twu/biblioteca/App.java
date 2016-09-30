@@ -2,12 +2,14 @@ package com.twu.biblioteca;
 
 public class App {
     private Proxy proxy;
+    private Resource resource;
 
-    public App(Proxy proxy) {
+    public App(Proxy proxy, Resource resource) {
         this.proxy = proxy;
+        this.resource = resource;
     }
 
     public void start() {
-        proxy.displayStatic(StaticContent.getWelcomeMessage());
+        proxy.displayStatic(resource.getWelcomeMessage());
     }
 }
