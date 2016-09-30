@@ -7,6 +7,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static com.twu.biblioteca.Status.idle;
+import static com.twu.biblioteca.Status.quit;
+import static com.twu.biblioteca.Status.waitingForInput;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,10 +22,15 @@ public class AppTest {
     @Mock
     Resource resource;
 
+    List<Book> books;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         app = new App(proxy, resource);
+
+        books = asList(spy(new Book("1", "aBook", "anAuthor", 2012)));
+        when(resource.getBooks()).thenReturn(books);
     }
 
     @Test
@@ -36,9 +44,6 @@ public class AppTest {
 
     @Test
     public void should_list_books() {
-        List<Book> books = asList(new Book("aBook", "anAuthor", 2012));
-        when(resource.getBooks()).thenReturn(books);
-
         app.displayBookList();
 
         verify(proxy).displayBookList(books);
@@ -58,10 +63,10 @@ public class AppTest {
     public void should_run_with_option() {
         app = spy(app);
 
-        boolean result = app.run(0);
+        Status result = app.run(0);
 
         verify(app).displayBookList();
-        assertThat(result, is(false));
+        assertThat(result, is(waitingForInput));
     }
 
     @Test
@@ -70,18 +75,43 @@ public class AppTest {
         String warning = "Some warning";
         when(resource.getInvalidOptionWarning()).thenReturn(warning);
 
-        boolean result = app.run(99999);
+        Status result = app.run(99999);
 
         verify(proxy).displayStatic(warning);
-        assertThat(result, is(false));
+        assertThat(result, is(idle));
     }
 
     @Test
     public void should_be_able_to_quit() {
         app = spy(app);
 
-        boolean result = app.run(-1);
+        Status result = app.run(-1);
 
-        assertThat(result, is(true));
+        assertThat(result, is(quit));
+    }
+
+    @Test
+    public void should_be_able_to_checkout_book() {
+        app = spy(app);
+        String message = "Checked out some book";
+        when(resource.getCheckoutSuccessMessage(any(Book.class))).thenReturn(message);
+
+        app.run(0);
+        app.execute("checkout 1");
+
+        verify(proxy).displayStatic(message);
+        verify(books.get(0)).checkout();
+    }
+
+    @Test
+    public void should_show_warning_when_checkout_failed() {
+        app = spy(app);
+        String message = "Checkout failed";
+        when(resource.getCheckoutFailMessage()).thenReturn(message);
+
+        app.run(0);
+        app.execute("checkout 2");
+
+        verify(proxy).displayStatic(message);
     }
 }

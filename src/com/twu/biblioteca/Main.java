@@ -11,12 +11,17 @@ public class Main {
         App app = new App(proxy, resource);
 
         app.start();
-        boolean shouldQuit = false;
+        Status status = Status.idle;
 
-        while (!shouldQuit) {
+        while (status != Status.quit) {
             app.showMenuItems();
             int option = scanner.nextInt();
-            shouldQuit = app.run(option - 1);
+            status = app.run(option - 1);
+            while (status == Status.waitingForInput) {
+                scanner.nextLine();
+                String input = scanner.nextLine();
+                status = app.execute(input);
+            }
         }
     }
 }

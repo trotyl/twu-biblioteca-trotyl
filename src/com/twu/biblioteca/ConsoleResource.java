@@ -12,8 +12,8 @@ public class ConsoleResource extends Resource {
     @Override
     public List<Book> getBooks() {
         return asList(
-                new Book("Book1", "Author1", 2000),
-                new Book("Book2", "Author2", 2001)
+                new Book("1", "Book1", "Author1", 2000),
+                new Book("2", "Book2", "Author2", 2001)
         );
     }
 
@@ -25,6 +25,16 @@ public class ConsoleResource extends Resource {
     @Override
     public String getInvalidOptionWarning() {
         return "Select a valid option!";
+    }
+
+    @Override
+    public String getCheckoutSuccessMessage(Book book) {
+        return String.format("Checkout %s successfully!", book.getTitle());
+    }
+
+    @Override
+    public String getCheckoutFailMessage() {
+        return "Checkout failed!";
     }
 
 }

@@ -16,6 +16,8 @@ public class ConsoleProxy extends Proxy {
             System.out.println(book);
         }
         System.out.println();
+
+        System.out.print("Please enter an option or nothing to go back:");
     }
 
     @Override

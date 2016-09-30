@@ -10,4 +10,8 @@ public abstract class Resource {
     public abstract List<String> getMainMenuItems();
 
     public abstract String getInvalidOptionWarning();
+
+    public abstract String getCheckoutSuccessMessage(Book book);
+
+    public abstract String getCheckoutFailMessage();
 }
