@@ -18,7 +18,7 @@ public class App {
     }
 
     public void displayBookList() {
-        proxy.displayBookList(resource.getBooks());
+        proxy.displayBookList(resource.getBooks().stream().filter(book -> book.isAvailable()).collect(toList()));
     }
 
     public void showMenuItems() {

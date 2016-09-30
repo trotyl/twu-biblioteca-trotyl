@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.twu.biblioteca.Status.idle;
@@ -71,7 +72,6 @@ public class AppTest {
 
     @Test
     public void should_warn_with_invalid_option() {
-        app = spy(app);
         String warning = "Some warning";
         when(resource.getInvalidOptionWarning()).thenReturn(warning);
 
@@ -83,8 +83,6 @@ public class AppTest {
 
     @Test
     public void should_be_able_to_quit() {
-        app = spy(app);
-
         Status result = app.run(-1);
 
         assertThat(result, is(quit));
@@ -92,7 +90,6 @@ public class AppTest {
 
     @Test
     public void should_be_able_to_checkout_book() {
-        app = spy(app);
         String message = "Checked out some book";
         when(resource.getCheckoutSuccessMessage(any(Book.class))).thenReturn(message);
 
@@ -105,7 +102,6 @@ public class AppTest {
 
     @Test
     public void should_show_warning_when_checkout_failed() {
-        app = spy(app);
         String message = "Checkout failed";
         when(resource.getCheckoutFailMessage()).thenReturn(message);
 
@@ -113,5 +109,15 @@ public class AppTest {
         app.execute("checkout 2");
 
         verify(proxy).displayStatic(message);
+    }
+
+    @Test
+    public void should_not_display_books_not_available() {
+        app.run(0);
+        app.execute("checkout 1");
+
+        app.displayBookList();
+
+        verify(proxy).displayBookList(Collections.emptyList());
     }
 }
