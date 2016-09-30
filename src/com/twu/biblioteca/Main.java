@@ -6,6 +6,8 @@ public class Main {
         ConsoleProxy proxy = new ConsoleProxy();
         ConsoleResource resource = new ConsoleResource();
         App app = new App(proxy, resource);
+
         app.start();
+        app.displayBookList();
     }
 }

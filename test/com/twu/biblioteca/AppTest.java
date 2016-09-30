@@ -1,13 +1,13 @@
 package com.twu.biblioteca;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.mock;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,4 +33,13 @@ public class AppTest {
         verify(proxy).displayStatic("This is welcome message.");
     }
 
+    @Test
+    public void should_list_books() {
+        List<Book> books = asList(new Book("aBook"));
+        when(resource.getBooks()).thenReturn(books);
+
+        app.displayBookList();
+
+        verify(proxy).displayBookList(books);
+    }
 }

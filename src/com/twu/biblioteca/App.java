@@ -12,4 +12,8 @@ public class App {
     public void start() {
         proxy.displayStatic(resource.getWelcomeMessage());
     }
+
+    public void displayBookList() {
+        proxy.displayBookList(resource.getBooks());
+    }
 }
