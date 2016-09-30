@@ -18,4 +18,6 @@ public abstract class Resource {
     public abstract String getReturnSuccessMessage(Book book);
 
     public abstract String getReturnFailMessage();
+
+    public abstract List<Movie> getMovies();
 }

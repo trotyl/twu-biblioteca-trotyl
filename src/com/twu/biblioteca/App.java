@@ -21,6 +21,10 @@ public class App {
         proxy.displayBookList(resource.getBooks().stream().filter(book -> book.isAvailable()).collect(toList()));
     }
 
+    public void displayMovieList() {
+        proxy.displayMovieList(resource.getMovies().stream().filter(movie -> movie.isAvailable()).collect(toList()));
+    }
+
     public void showMenuItems() {
         proxy.displayMainMenuItems(resource.getMainMenuItems());
     }

@@ -47,4 +47,9 @@ public class ConsoleResource extends Resource {
         return "Return failed!";
     }
 
+    @Override
+    public List<Movie> getMovies() {
+        return null;
+    }
+
 }

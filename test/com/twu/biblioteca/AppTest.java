@@ -23,18 +23,27 @@ public class AppTest {
     @Mock
     Resource resource;
 
-    List<Book> books;
+    private List<Book> books;
+    private List<Movie> movies;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         app = new App(proxy, resource);
+
         Book book1 = new Book("1", "aBook", "anAuthor", 2012);
         Book book2 = new Book("2", "anotherBook", "anotherAuthor", 2016);
         book2.checkout();
 
         books = asList(spy(book1), spy(book2));
         when(resource.getBooks()).thenReturn(books);
+
+        Movie movie1 = new Movie("6", "Movie1");
+        Movie movie2 = new Movie("7", "Movie2");
+        movie2.checkout();
+
+        movies = asList(spy(movie1), spy(movie2));
+        when(resource.getMovies()).thenReturn(movies);
     }
 
     @Test
@@ -145,5 +154,12 @@ public class AppTest {
         app.execute("return 9999");
 
         verify(proxy).displayStatic(message);
+    }
+
+    @Test
+    public void should_be_able_to_list_movies() {
+        app.displayMovieList();
+
+        verify(proxy).displayMovieList(asList(movies.get(0)));
     }
 }

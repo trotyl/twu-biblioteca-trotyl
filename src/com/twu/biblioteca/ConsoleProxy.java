@@ -30,4 +30,9 @@ public class ConsoleProxy extends Proxy {
         System.out.println();
         System.out.print("Please enter an option:");
     }
+
+    @Override
+    public void displayMovieList(List<Movie> movies) {
+
+    }
 }
