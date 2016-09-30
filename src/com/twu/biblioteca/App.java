@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toList;
 public class App {
     private Proxy proxy;
     private Resource resource;
-    private Account account;
+    private Account account = new Account("Anonymous", "", "", "", false);
 
     public App(Proxy proxy, Resource resource) {
         this.proxy = proxy;
@@ -23,11 +23,19 @@ public class App {
     }
 
     public void displayBookList() {
-        proxy.displayBookList(resource.getBooks().stream().filter(book -> book.isAvailable()).collect(toList()));
+        List<Book> allBooks = resource.getBooks();
+        List<Book> booksToShow = account.isAdmin() ?
+                allBooks :
+                allBooks.stream().filter(Item::isAvailable).collect(toList());
+        proxy.displayBookList(booksToShow, account.isAdmin());
     }
 
     public void displayMovieList() {
-        proxy.displayMovieList(resource.getMovies().stream().filter(movie -> movie.isAvailable()).collect(toList()));
+        List<Movie> allMovies = resource.getMovies();
+        List<Movie> moviesToShow = account.isAdmin() ?
+                allMovies :
+                allMovies.stream().filter(Item::isAvailable).collect(toList());
+        proxy.displayMovieList(moviesToShow, account.isAdmin());
     }
 
     public void displayAccount() {
@@ -69,7 +77,7 @@ public class App {
                 List<Book> booksCheckedOut = resource.getBooks().stream()
                         .filter(book -> book.getId().equals(bookIdToCheckout))
                         .map(book -> {
-                            book.checkout();
+                            book.checkout(account);
                             String message = resource.getCheckoutSuccessMessage(book);
                             proxy.displayStatic(message);
                             return book;
@@ -108,7 +116,7 @@ public class App {
                 }
                 break;
             case "logout":
-                account = null;
+                account = new Account("Anonymous", "", "", "", false);
                 proxy.displayStatic(resource.getLogoutMessage());
                 break;
         }

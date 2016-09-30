@@ -12,10 +12,13 @@ public class ConsoleProxy extends Proxy {
     }
 
     @Override
-    public void displayBookList(List<Book> books) {
+    public void displayBookList(List<Book> books, boolean isAdmin) {
         System.out.println("The current available books are:");
         for (Book book : books) {
             System.out.println(book);
+            if (isAdmin && !book.isAvailable()) {
+                System.out.println(format("Now in %s", book.getOwner().getName()));
+            }
         }
         System.out.println();
 
@@ -23,10 +26,13 @@ public class ConsoleProxy extends Proxy {
     }
 
     @Override
-    public void displayMovieList(List<Movie> movies) {
+    public void displayMovieList(List<Movie> movies, boolean isAdmin) {
         System.out.println("The current available movies are:");
         for (Movie movie : movies) {
             System.out.println(movie);
+            if (isAdmin && !movie.isAvailable()) {
+                System.out.println(format("Now in %s", movie.getOwner().getName()));
+            }
         }
         System.out.println();
 
@@ -35,7 +41,7 @@ public class ConsoleProxy extends Proxy {
 
     @Override
     public void displayAccount(Account account) {
-        if (account != null) {
+        if (account != null && !account.getName().equals("Anonymous")) {
             System.out.println(format("Hello, %s", account.getName()));
             System.out.println(format("Your email is: %s", account.getEmail()));
             System.out.println(format("Your phone is: %s", account.getPhone()));

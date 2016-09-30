@@ -34,14 +34,14 @@ public class AppTest {
 
         Book book1 = new Book("1", "aBook", "anAuthor", 2012);
         Book book2 = new Book("2", "anotherBook", "anotherAuthor", 2016);
-        book2.checkout();
+        book2.checkout(null);
 
         books = asList(spy(book1), spy(book2));
         when(resource.getBooks()).thenReturn(books);
 
         Movie movie1 = new Movie("6", "Movie1");
         Movie movie2 = new Movie("7", "Movie2");
-        movie2.checkout();
+        movie2.checkout(null);
 
         movies = asList(spy(movie1), spy(movie2));
         when(resource.getMovies()).thenReturn(movies);
@@ -60,7 +60,7 @@ public class AppTest {
     public void should_list_books() {
         app.displayBookList();
 
-        verify(proxy).displayBookList(asList(books.get(0)));
+        verify(proxy).displayBookList(asList(books.get(0)), false);
     }
 
     @Test
@@ -106,11 +106,10 @@ public class AppTest {
         String message = "Checked out some item";
         when(resource.getCheckoutSuccessMessage(any(Item.class))).thenReturn(message);
 
-        app.run(0);
         app.execute("checkout 1");
 
         verify(proxy).displayStatic(message);
-        verify(books.get(0)).checkout();
+        verify(books.get(0)).checkout(app.getAccount());
     }
 
     @Test
@@ -118,7 +117,6 @@ public class AppTest {
         String message = "Checkout failed";
         when(resource.getCheckoutFailMessage()).thenReturn(message);
 
-        app.run(0);
         app.execute("checkout 9999");
 
         verify(proxy).displayStatic(message);
@@ -126,12 +124,11 @@ public class AppTest {
 
     @Test
     public void should_not_display_books_not_available() {
-        app.run(0);
         app.execute("checkout 1");
 
         app.displayBookList();
 
-        verify(proxy).displayBookList(Collections.emptyList());
+        verify(proxy).displayBookList(Collections.emptyList(), false);
     }
 
     @Test
@@ -139,7 +136,6 @@ public class AppTest {
         String message = "Return some book";
         when(resource.getReturnSuccessMessage(any(Item.class))).thenReturn(message);
 
-        app.run(0);
         app.execute("return 1");
 
         verify(proxy).displayStatic(message);
@@ -151,7 +147,6 @@ public class AppTest {
         String message = "Checkout failed";
         when(resource.getReturnFailMessage()).thenReturn(message);
 
-        app.run(0);
         app.execute("return 9999");
 
         verify(proxy).displayStatic(message);
@@ -161,7 +156,7 @@ public class AppTest {
     public void should_be_able_to_list_movies() {
         app.displayMovieList();
 
-        verify(proxy).displayMovieList(asList(movies.get(0)));
+        verify(proxy).displayMovieList(asList(movies.get(0)), false);
     }
 
     @Test
@@ -178,7 +173,7 @@ public class AppTest {
     public void should_be_able_to_see_account() {
         app.displayAccount();
 
-        verify(proxy).displayAccount(null);
+        verify(proxy).displayAccount(any());
     }
 
     @Test
@@ -198,7 +193,6 @@ public class AppTest {
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLoginSuccessMessage(anyString())).thenReturn(message);
 
-        app.run(0);
         app.execute("login user 123");
 
         verify(proxy).displayStatic(message);
@@ -212,7 +206,6 @@ public class AppTest {
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLoginFailMessage()).thenReturn(message);
 
-        app.run(0);
         app.execute("login user 456");
 
         verify(proxy).displayStatic(message);
@@ -225,11 +218,21 @@ public class AppTest {
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLogoutMessage()).thenReturn(message);
 
-        app.run(0);
         app.execute("login user 123");
         app.execute("logout");
 
         verify(proxy).displayStatic(message);
         assertThat(app.getAccount(), is(nullValue()));
+    }
+
+    @Test
+    public void should_show_all_items_for_admin() {
+        Account account = new Account("admin", "123", "a@a.com", "...", true);
+        when(resource.getAccounts()).thenReturn(asList(account));
+        app.execute("login admin 123");
+
+        app.displayBookList();
+
+        verify(proxy).displayBookList(books, true);
     }
 }
