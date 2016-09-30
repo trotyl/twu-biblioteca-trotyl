@@ -35,7 +35,7 @@ public class AppTest {
 
     @Test
     public void should_list_books() {
-        List<Book> books = asList(new Book("aBook"));
+        List<Book> books = asList(new Book("aBook", "anAuthor", 2012));
         when(resource.getBooks()).thenReturn(books);
 
         app.displayBookList();

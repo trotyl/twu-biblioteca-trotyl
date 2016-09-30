@@ -12,8 +12,8 @@ public class ConsoleResource extends Resource {
     @Override
     public List<Book> getBooks() {
         return asList(
-                new Book("Book1"),
-                new Book("Book2")
+                new Book("Book1", "Author1", 2000),
+                new Book("Book2", "Author2", 2001)
         );
     }
 
