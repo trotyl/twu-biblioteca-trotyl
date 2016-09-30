@@ -16,4 +16,18 @@ public class App {
     public void displayBookList() {
         proxy.displayBookList(resource.getBooks());
     }
+
+    public void showMenuItems() {
+        proxy.displayMenuItems(resource.getMenuItems());
+    }
+
+    public boolean run(int option) {
+        switch (option) {
+            case 0:
+                displayBookList();
+                break;
+        }
+
+        return false;
+    }
 }

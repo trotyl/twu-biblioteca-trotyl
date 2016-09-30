@@ -8,8 +8,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
 public class AppTest {
     App app;
@@ -41,5 +42,25 @@ public class AppTest {
         app.displayBookList();
 
         verify(proxy).displayBookList(books);
+    }
+
+    @Test
+    public void should_show_menu() {
+        List<String> menuItems = asList("Option1", "Option2");
+        when(resource.getMenuItems()).thenReturn(menuItems);
+
+        app.showMenuItems();
+
+        verify(proxy).displayMenuItems(menuItems);
+    }
+
+    @Test
+    public void should_run_with_option() {
+        app = spy(app);
+
+        boolean result = app.run(0);
+
+        verify(app).displayBookList();
+        assertThat(result, is(false));
     }
 }

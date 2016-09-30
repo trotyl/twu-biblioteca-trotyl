@@ -17,4 +17,9 @@ public class ConsoleResource extends Resource {
         );
     }
 
+    @Override
+    public List<String> getMenuItems() {
+        return asList("List Books");
+    }
+
 }

@@ -6,4 +6,6 @@ public abstract class Resource {
     public abstract String getWelcomeMessage();
 
     public abstract List<Book> getBooks();
+
+    public abstract List<String> getMenuItems();
 }
