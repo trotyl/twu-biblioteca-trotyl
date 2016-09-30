@@ -23,6 +23,8 @@ public class App {
 
     public boolean run(int option) {
         switch (option) {
+            case -1:
+                return true;
             case 0:
                 displayBookList();
                 break;

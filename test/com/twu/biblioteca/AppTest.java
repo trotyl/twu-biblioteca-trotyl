@@ -70,9 +70,18 @@ public class AppTest {
         String warning = "Some warning";
         when(resource.getInvalidOptionWarning()).thenReturn(warning);
 
-        boolean result = app.run(-1);
+        boolean result = app.run(99999);
 
         verify(proxy).displayStatic(warning);
         assertThat(result, is(false));
+    }
+
+    @Test
+    public void should_be_able_to_quit() {
+        app = spy(app);
+
+        boolean result = app.run(-1);
+
+        assertThat(result, is(true));
     }
 }
