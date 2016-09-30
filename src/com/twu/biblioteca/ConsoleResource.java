@@ -27,7 +27,7 @@ public class ConsoleResource extends Resource {
 
     @Override
     public List<String> getMainMenuItems() {
-        return asList("List Books", "List Movies");
+        return asList("List Books", "List Movies", "Account");
     }
 
     @Override

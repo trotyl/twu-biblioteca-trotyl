@@ -2,6 +2,8 @@ package com.twu.biblioteca;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class ConsoleProxy extends Proxy {
     @Override
     public void displayStatic(String content) {
@@ -32,10 +34,23 @@ public class ConsoleProxy extends Proxy {
     }
 
     @Override
+    public void displayAccount(Account account) {
+        if (account != null) {
+            System.out.println(format("Hello, %s", account.getName()));
+            System.out.println();
+            System.out.print("Enter 'logout' to logout:");
+        } else {
+            System.out.println("You are not logged in!");
+            System.out.println();
+            System.out.print("Enter 'login <username> <password>' to login:");
+        }
+    }
+
+    @Override
     public void displayMainMenuItems(List<String> items) {
         System.out.println("The available options are:");
         for (int i = 0; i < items.size(); i++) {
-            System.out.println(String.format("%d) %s", i + 1, items.get(i)));
+            System.out.println(format("%d) %s", i + 1, items.get(i)));
         }
         System.out.println("0) Quit");
         System.out.println();

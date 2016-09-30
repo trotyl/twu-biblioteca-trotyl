@@ -10,4 +10,6 @@ public abstract class Proxy {
     public abstract void displayMainMenuItems(List<String> items);
 
     public abstract void displayMovieList(List<Movie> movies);
+
+    public abstract void displayAccount(Account account);
 }

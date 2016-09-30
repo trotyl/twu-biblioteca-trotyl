@@ -173,4 +173,21 @@ public class AppTest {
         assertThat(result, is(waitingForInput));
     }
 
+    @Test
+    public void should_be_able_to_see_account() {
+        app.displayAccount();
+
+        verify(proxy).displayAccount(null);
+    }
+
+    @Test
+    public void should_run_with_display_account() {
+        app = spy(app);
+
+        Status result = app.run(2);
+
+        verify(app).displayAccount();
+        assertThat(result, is(waitingForInput));
+    }
+
 }

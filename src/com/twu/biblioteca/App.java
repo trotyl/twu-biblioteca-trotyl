@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.toList;
 public class App {
     private Proxy proxy;
     private Resource resource;
+    private Account account;
 
     public App(Proxy proxy, Resource resource) {
         this.proxy = proxy;
@@ -25,6 +26,10 @@ public class App {
         proxy.displayMovieList(resource.getMovies().stream().filter(movie -> movie.isAvailable()).collect(toList()));
     }
 
+    public void displayAccount() {
+        proxy.displayAccount(account);
+    }
+
     public void showMenuItems() {
         proxy.displayMainMenuItems(resource.getMainMenuItems());
     }
@@ -38,6 +43,9 @@ public class App {
                 return Status.waitingForInput;
             case 1:
                 displayMovieList();
+                return Status.waitingForInput;
+            case 2:
+                displayAccount();
                 return Status.waitingForInput;
             default:
                 proxy.displayStatic(resource.getInvalidOptionWarning());
