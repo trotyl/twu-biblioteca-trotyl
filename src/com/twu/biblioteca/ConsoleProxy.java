@@ -21,6 +21,17 @@ public class ConsoleProxy extends Proxy {
     }
 
     @Override
+    public void displayMovieList(List<Movie> movies) {
+        System.out.println("The current available movies are:");
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+        System.out.println();
+
+        System.out.print("Please enter an option or nothing to go back:");
+    }
+
+    @Override
     public void displayMainMenuItems(List<String> items) {
         System.out.println("The available options are:");
         for (int i = 0; i < items.size(); i++) {
@@ -29,10 +40,5 @@ public class ConsoleProxy extends Proxy {
         System.out.println("0) Quit");
         System.out.println();
         System.out.print("Please enter an option:");
-    }
-
-    @Override
-    public void displayMovieList(List<Movie> movies) {
-
     }
 }
