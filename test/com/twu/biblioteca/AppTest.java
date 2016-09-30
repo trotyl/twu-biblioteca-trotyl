@@ -135,4 +135,15 @@ public class AppTest {
         verify(proxy).displayStatic(message);
         verify(books.get(0)).doReturn();
     }
+
+    @Test
+    public void should_show_warning_when_return_failed() {
+        String message = "Checkout failed";
+        when(resource.getReturnFailMessage()).thenReturn(message);
+
+        app.run(0);
+        app.execute("return 9999");
+
+        verify(proxy).displayStatic(message);
+    }
 }

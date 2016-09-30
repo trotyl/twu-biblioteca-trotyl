@@ -71,6 +71,9 @@ public class App {
                             return book;
                         })
                         .collect(toList());
+                if (booksReturned.size() == 0) {
+                    proxy.displayStatic(resource.getReturnFailMessage());
+                }
                 break;
         }
 

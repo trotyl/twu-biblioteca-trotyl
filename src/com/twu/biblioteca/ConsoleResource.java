@@ -42,4 +42,9 @@ public class ConsoleResource extends Resource {
         return null;
     }
 
+    @Override
+    public String getReturnFailMessage() {
+        return null;
+    }
+
 }
