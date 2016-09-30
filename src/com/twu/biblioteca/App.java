@@ -36,6 +36,9 @@ public class App {
             case 0:
                 displayBookList();
                 return Status.waitingForInput;
+            case 1:
+                displayMovieList();
+                return Status.waitingForInput;
             default:
                 proxy.displayStatic(resource.getInvalidOptionWarning());
                 break;

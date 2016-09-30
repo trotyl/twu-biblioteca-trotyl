@@ -18,8 +18,16 @@ public class ConsoleResource extends Resource {
     }
 
     @Override
+    public List<Movie> getMovies() {
+        return asList(
+                new Movie("1", "Movie1"),
+                new Movie("2", "Movie2")
+        );
+    }
+
+    @Override
     public List<String> getMainMenuItems() {
-        return asList("List Books");
+        return asList("List Books", "List Movies");
     }
 
     @Override
@@ -45,11 +53,6 @@ public class ConsoleResource extends Resource {
     @Override
     public String getReturnFailMessage() {
         return "Return failed!";
-    }
-
-    @Override
-    public List<Movie> getMovies() {
-        return null;
     }
 
 }

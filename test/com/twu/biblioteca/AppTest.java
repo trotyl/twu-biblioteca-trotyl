@@ -73,7 +73,7 @@ public class AppTest {
     }
 
     @Test
-    public void should_run_with_option() {
+    public void should_run_with_list_books() {
         app = spy(app);
 
         Status result = app.run(0);
@@ -161,6 +161,16 @@ public class AppTest {
         app.displayMovieList();
 
         verify(proxy).displayMovieList(asList(movies.get(0)));
+    }
+
+    @Test
+    public void should_run_with_list_movies() {
+        app = spy(app);
+
+        Status result = app.run(1);
+
+        verify(app).displayMovieList();
+        assertThat(result, is(waitingForInput));
     }
 
 }
