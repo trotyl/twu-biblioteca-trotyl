@@ -30,4 +30,14 @@ public class BookTest {
 
         assertThat(book.isAvailable(), is(false));
     }
+
+    @Test
+    public void should_be_able_to_return() {
+        book.checkout();
+
+        book.doReturn();
+
+        assertThat(book.isAvailable(), is(true));
+    }
+
 }

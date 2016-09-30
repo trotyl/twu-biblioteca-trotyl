@@ -27,6 +27,10 @@ public class Book {
         this.available = false;
     }
 
+    public void doReturn() {
+        this.available = true;
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s %s %d", id, title, author, yearPublished);
@@ -34,9 +38,5 @@ public class Book {
 
     public String getTitle() {
         return title;
-    }
-
-    public void doReturn() {
-
     }
 }
