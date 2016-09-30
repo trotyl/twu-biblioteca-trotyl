@@ -26,6 +26,9 @@ public class App {
             case 0:
                 displayBookList();
                 break;
+            default:
+                proxy.displayStatic(resource.getInvalidOptionWarning());
+                break;
         }
 
         return false;

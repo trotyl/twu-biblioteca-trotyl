@@ -63,4 +63,16 @@ public class AppTest {
         verify(app).displayBookList();
         assertThat(result, is(false));
     }
+
+    @Test
+    public void should_warn_with_invalid_option() {
+        app = spy(app);
+        String warning = "Some warning";
+        when(resource.getInvalidOptionWarning()).thenReturn(warning);
+
+        boolean result = app.run(-1);
+
+        verify(proxy).displayStatic(warning);
+        assertThat(result, is(false));
+    }
 }

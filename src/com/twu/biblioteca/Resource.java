@@ -8,4 +8,6 @@ public abstract class Resource {
     public abstract List<Book> getBooks();
 
     public abstract List<String> getMenuItems();
+
+    public abstract String getInvalidOptionWarning();
 }

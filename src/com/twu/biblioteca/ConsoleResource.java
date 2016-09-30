@@ -22,4 +22,9 @@ public class ConsoleResource extends Resource {
         return asList("List Books");
     }
 
+    @Override
+    public String getInvalidOptionWarning() {
+        return "Select a valid option!";
+    }
+
 }
