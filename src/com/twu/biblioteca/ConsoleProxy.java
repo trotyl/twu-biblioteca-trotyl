@@ -37,6 +37,8 @@ public class ConsoleProxy extends Proxy {
     public void displayAccount(Account account) {
         if (account != null) {
             System.out.println(format("Hello, %s", account.getName()));
+            System.out.println(format("Your email is: %s", account.getEmail()));
+            System.out.println(format("Your phone is: %s", account.getPhone()));
             System.out.println();
             System.out.print("Enter 'logout' to logout:");
         } else {

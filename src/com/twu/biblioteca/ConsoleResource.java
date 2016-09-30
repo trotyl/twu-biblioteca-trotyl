@@ -44,8 +44,8 @@ public class ConsoleResource extends Resource {
     @Override
     public List<Account> getAccounts() {
         return asList(
-                new Account("admin", "123", true),
-                new Account("user", "123", false)
+                new Account("admin", "123", "a@a.com", "...", true),
+                new Account("user", "123", "b@b.com", "...", false)
         );
     }
 

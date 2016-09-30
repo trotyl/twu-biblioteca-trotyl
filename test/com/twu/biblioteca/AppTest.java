@@ -194,7 +194,7 @@ public class AppTest {
     @Test
     public void should_be_able_to_login() {
         String message = "Login success";
-        Account account = new Account("user", "123", false);
+        Account account = new Account("user", "123", "a@a.com", "...", false);
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLoginSuccessMessage(anyString())).thenReturn(message);
 
@@ -208,7 +208,7 @@ public class AppTest {
     @Test
     public void should_warn_when_login_failed() {
         String message = "Login failed";
-        Account account = new Account("user", "123", false);
+        Account account = new Account("user", "123", "a@a.com", "...", false);
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLoginFailMessage()).thenReturn(message);
 
@@ -221,7 +221,7 @@ public class AppTest {
     @Test
     public void should_be_able_to_logout() {
         String message = "Logout";
-        Account account = new Account("user", "123", false);
+        Account account = new Account("user", "123", "a@a.com", "...", false);
         when(resource.getAccounts()).thenReturn(asList(account));
         when(resource.getLogoutMessage()).thenReturn(message);
 
