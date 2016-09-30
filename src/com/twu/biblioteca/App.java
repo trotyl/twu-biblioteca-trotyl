@@ -8,10 +8,15 @@ public class App {
     private Proxy proxy;
     private Resource resource;
     private Account account = new Account("Anonymous", "", "", "", false);
+    private List<Book> books;
+    private List<Movie> movies;
 
     public App(Proxy proxy, Resource resource) {
         this.proxy = proxy;
         this.resource = resource;
+
+        books = resource.getBooks();
+        movies = resource.getMovies();
     }
 
     public Account getAccount() {
@@ -23,18 +28,16 @@ public class App {
     }
 
     public void displayBookList() {
-        List<Book> allBooks = resource.getBooks();
         List<Book> booksToShow = account.isAdmin() ?
-                allBooks :
-                allBooks.stream().filter(Item::isAvailable).collect(toList());
+                books :
+                books.stream().filter(Item::isAvailable).collect(toList());
         proxy.displayBookList(booksToShow, account.isAdmin());
     }
 
     public void displayMovieList() {
-        List<Movie> allMovies = resource.getMovies();
         List<Movie> moviesToShow = account.isAdmin() ?
-                allMovies :
-                allMovies.stream().filter(Item::isAvailable).collect(toList());
+                movies :
+                movies.stream().filter(Item::isAvailable).collect(toList());
         proxy.displayMovieList(moviesToShow, account.isAdmin());
     }
 
@@ -74,7 +77,7 @@ public class App {
                 break;
             case "checkout":
                 String bookIdToCheckout = tokens[1];
-                List<Book> booksCheckedOut = resource.getBooks().stream()
+                List<Book> booksCheckedOut = books.stream()
                         .filter(book -> book.getId().equals(bookIdToCheckout))
                         .map(book -> {
                             book.checkout(account);
@@ -89,7 +92,7 @@ public class App {
                 break;
             case "return":
                 String bookIdToReturn = tokens[1];
-                List<Book> booksReturned = resource.getBooks().stream()
+                List<Book> booksReturned = books.stream()
                         .filter(book -> book.getId().equals(bookIdToReturn))
                         .map(book -> {
                             book.doReturn();
